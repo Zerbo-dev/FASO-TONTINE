@@ -1,7 +1,7 @@
-# Documentation du Diagramme de Classes
-## Application Tontine + Crowdfunding
 
-> **Version** 1.0 · **Standard** UML 2.5 · **Auteur** Conception produit
+# Application Tontine + Crowdfunding
+
+> **Version** 1.0 · **Auteur** BEN-DEV
 
 ---
 
