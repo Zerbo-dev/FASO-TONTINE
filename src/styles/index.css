@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* Configuration globale du design FasoTontine */
+:root {
+  --bg-color: #fdfaf5; 
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #1e293b;
+}
+
+/* Animation du logo cauris */
+@keyframes cauri-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.cauri-logo {
+  display: inline-block;
+  animation: cauri-bounce 2s infinite ease-in-out;
+}
