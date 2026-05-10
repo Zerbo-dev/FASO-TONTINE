@@ -1,0 +1,113 @@
+{
+  "info": {
+    "name": "FasoTontine API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1 - Vérifier serveur",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:5000/"
+      }
+    },
+    {
+      "name": "2 - Inscription",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"full_name\": \"Issa Sawadogo\",\n  \"phone\": \"76000000\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": "http://localhost:5000/api/auth/register"
+      }
+    },
+    {
+      "name": "3 - Connexion",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"phone\": \"76000000\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": "http://localhost:5000/api/auth/login"
+      }
+    },
+    {
+      "name": "4 - Créer tontine",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Tontine Projet\",\n  \"amount\": 10000,\n  \"frequency\": \"mensuel\",\n  \"created_by\": 1\n}"
+        },
+        "url": "http://localhost:5000/api/groups/"
+      }
+    },
+    {
+      "name": "5 - Ajouter membre",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user_id\": 2,\n  \"role\": \"member\"\n}"
+        },
+        "url": "http://localhost:5000/api/groups/1/members"
+      }
+    },
+    {
+      "name": "6 - Voir détails tontine",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:5000/api/groups/1"
+      }
+    },
+    {
+      "name": "7 - Enregistrer paiement",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user_id\": 2,\n  \"group_id\": 1,\n  \"amount\": 5000,\n  \"status\": \"paid\"\n}"
+        },
+        "url": "http://localhost:5000/api/payments/"
+      }
+    },
+    {
+      "name": "8 - Voir paiements",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:5000/api/payments/group/1"
+      }
+    },
+    {
+      "name": "9 - Créer projet",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Réparation route\",\n  \"description\": \"Réparation de la voie principale\",\n  \"location\": \"Ouagadougou\",\n  \"requested_amount\": 300000\n}"
+        },
+        "url": "http://localhost:5000/api/projects/"
+      }
+    },
+    {
+      "name": "10 - Voter",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user_id\": 1,\n  \"vote\": \"yes\"\n}"
+        },
+        "url": "http://localhost:5000/api/projects/1/vote"
+      }
+    }
+  ]
+}

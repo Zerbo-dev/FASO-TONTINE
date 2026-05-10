@@ -1,0 +1,17 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="MCD FasoTontine">
+    <mxGraphModel dx="1000" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="user" value="USER&#xa;- id&#xa;- full_name&#xa;- phone&#xa;- password" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="80" y="80" width="180" height="120" as="geometry" /></mxCell>
+        <mxCell id="group" value="TONTINE_GROUP&#xa;- id&#xa;- name&#xa;- amount&#xa;- frequency&#xa;- created_by" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="360" y="80" width="200" height="140" as="geometry" /></mxCell>
+        <mxCell id="member" value="GROUP_MEMBER&#xa;- id&#xa;- user_id&#xa;- group_id&#xa;- role" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="220" y="300" width="200" height="120" as="geometry" /></mxCell>
+        <mxCell id="payment" value="PAYMENT&#xa;- id&#xa;- user_id&#xa;- group_id&#xa;- amount&#xa;- status&#xa;- paid_at" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="520" y="300" width="200" height="140" as="geometry" /></mxCell>
+        <mxCell id="project" value="PROJECT&#xa;- id&#xa;- title&#xa;- description&#xa;- location&#xa;- requested_amount" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="80" y="520" width="210" height="140" as="geometry" /></mxCell>
+        <mxCell id="vote" value="VOTE&#xa;- id&#xa;- user_id&#xa;- project_id&#xa;- vote" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="380" y="520" width="180" height="120" as="geometry" /></mxCell>
+        <mxCell id="guarantor" value="GUARANTOR&#xa;- id&#xa;- user_id&#xa;- guarantor_id&#xa;- group_id" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="700" y="80" width="200" height="120" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
