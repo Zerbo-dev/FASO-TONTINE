@@ -54,7 +54,7 @@ def get_group_payments(group_id):
 
 
 @payment_bp.route("/", methods=["POST"])
-def create_payment():
+def create_payments():
     data = request.get_json() or {}
 
     user_id = data.get("user_id")
@@ -64,9 +64,6 @@ def create_payment():
 
     if not user_id or not group_id:
         return jsonify({"error": "user_id et group_id obligatoires"}), 400
-
-    if status not in ["paid", "late", "pending"]:
-        return jsonify({"error": "status doit être paid, late ou pending"}), 400
 
     connection = get_db_connection()
     cursor = connection.cursor()
@@ -85,18 +82,54 @@ def create_payment():
 
             amount = group[0]
 
-        paid_at_sql = "NOW()" if status == "paid" else "NULL"
-
+        # Vérifier si paiement existe déjà
         cursor.execute(
-            f"""
-            INSERT INTO payments (user_id, group_id, amount, status, paid_at)
-            VALUES (%s, %s, %s, %s, {paid_at_sql})
-            RETURNING id, user_id, group_id, amount, status, paid_at
+            """
+            SELECT id FROM payments
+            WHERE user_id = %s AND group_id = %s
             """,
-            (user_id, group_id, amount, status),
+            (user_id, group_id),
         )
 
+        existing_payment = cursor.fetchone()
+
+        if existing_payment:
+            # UPDATE
+            paid_at_sql = "NOW()" if status == "paid" else "NULL"
+
+            cursor.execute(
+                f"""
+                UPDATE payments
+                SET status = %s,
+                    paid_at = {paid_at_sql}
+                WHERE user_id = %s
+                AND group_id = %s
+                RETURNING id, user_id, group_id, amount, status, paid_at
+                """,
+                (status, user_id, group_id),
+            )
+
+        else:
+            # INSERT
+            paid_at_sql = "NOW()" if status == "paid" else "NULL"
+
+            cursor.execute(
+                f"""
+                INSERT INTO payments (
+                    user_id,
+                    group_id,
+                    amount,
+                    status,
+                    paid_at
+                )
+                VALUES (%s, %s, %s, %s, {paid_at_sql})
+                RETURNING id, user_id, group_id, amount, status, paid_at
+                """,
+                (user_id, group_id, amount, status),
+            )
+
         payment = cursor.fetchone()
+
         connection.commit()
 
         return jsonify({
@@ -106,11 +139,7 @@ def create_payment():
             "amount": payment[3],
             "status": payment[4],
             "paid_at": str(payment[5]) if payment[5] else None,
-        }), 201
-
-    except errors.ForeignKeyViolation:
-        connection.rollback()
-        return jsonify({"error": "Utilisateur ou groupe introuvable"}), 400
+        }), 200
 
     except Exception as exc:
         connection.rollback()
